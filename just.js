@@ -73,26 +73,26 @@ function createBubble() {
   bubble.addEventListener('click', () => {
     bubblePopSound.currentTime = 0;
     bubblePopSound.play();
-    bubbleContainer.removeChild(bubble);
+    bubble.remove();
   });
 
   // Удаление случайных пузырьков раньше времени
   setTimeout(() => {
-    bubbleContainer.removeChild(bubble);
+    bubble.remove();
   }, Math.random() * 8000 + 5000); // Случайный интервал от 5 до 13 секунд
 }
 
-// Создание 6 пузырьков
+// Создание 3 пузырьков
 const intervalId = setInterval(() => {
-  if (bubbleContainer.children.length < 6) {
+  if (bubbleContainer.children.length < 3) {
     createBubble();
   }
 }, 1000);
 
-// Остановка генерации после 6 пузырьков
+// Остановка генерации после 3 пузырьков
 setTimeout(() => {
   clearInterval(intervalId);
-}, 6000);
+}, 3000);
 
 // Создание новых пузырей каждую секунду
 setInterval(createBubble, 1000);
