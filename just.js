@@ -46,17 +46,17 @@ function createBubble() {
   bubble.style.backgroundImage = `url('${bubbleImages[randomIndex]}')`;
 
   // Случайные координаты для появления пузыря
-  bubble.style.left = `${Math.random() * (window.innerWidth - 80)}px`;
+  bubble.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
   bubble.style.bottom = '0'; // Пузырек появляется снизу экрана
 
-  // Случайный размер пузырька
-  const randomSize = Math.floor(Math.random() * 41) + 40; // Размер от 40 до 80 пикселей
+  // Увеличенный размер пузырька
+  const randomSize = Math.floor(Math.random() * 61) + 80; // Размер от 80 до 140 пикселей
   bubble.style.width = `${randomSize}px`;
   bubble.style.height = `${randomSize}px`;
 
   bubbleContainer.appendChild(bubble);
 
-  // Обработчик клика на пузырек
+  // Обработчик событий касания и клика
   bubble.addEventListener('pointerdown', () => {
     bubblePopSound.currentTime = 0;
     bubblePopSound.play();
@@ -70,6 +70,19 @@ function createBubble() {
   setTimeout(() => {
     bubble.remove();
   }, Math.random() * 8000 + 5000); // Случайный интервал от 5 до 13 секунд
+
+  // Анимация всплывания пузырька
+  bubble.animate(
+    [
+      { transform: 'translateY(0)' },
+      { transform: `translateY(-${window.innerHeight + 120}px)` } // Пузырек исчезает за верхним краем экрана
+    ],
+    {
+      duration: Math.random() * 8000 + 5000, // Случайная длительность от 5 до 13 секунд
+      iterations: 1, // Анимация воспроизводится один раз
+      fill: 'forwards' // Пузырек остается в конечном положении
+    }
+  );
 }
 
 // Создание 3 пузырьков
